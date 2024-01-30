@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+}
+
+group 'ru.grishaev'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+/*ext{
+    selenideVersion = "7.0.1"
+    junitVersion = "5.10.0"
+}*/
+
+dependencies {
+    testImplementation(
+            'com.codeborne:selenide:7.0.3',
+            'org.junit.jupiter:junit-jupiter:5.10.0',
+            'org.slf4j:slf4j-simple:2.0.9',
+            'org.projectlombok:lombok:1.18.30',
+            'io.rest-assured:rest-assured:5.4.0'
+    )
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation 'org.projectlombok:lombok:1.18.30'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}
