@@ -5,11 +5,12 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.Matchers.*;
 
 import static io.restassured.RestAssured.given;
 
-public class homeWorkByFirstLessonApiTesting {
+public class HomeWorkByFirstLessonApiTests {
 
     @BeforeAll
     static void setUp() {
@@ -20,7 +21,7 @@ public class homeWorkByFirstLessonApiTesting {
     Faker faker = new Faker();
 
     @Test
-    void checkSuccessCreateUser(){
+    void checkSuccessCreateUser() {
         String name = faker.name().firstName();
         String position = faker.job().position();
         String data = "{\"name\":\"" + name + "\",\"job\":\"" + position + "\"}";
@@ -31,19 +32,19 @@ public class homeWorkByFirstLessonApiTesting {
                 .log().uri()
 
                 .when()
-                    .post("/users")
+                .post("/users")
 
                 .then()
-                    .log().body()
-                    .log().status()
-                    .statusCode(201)
-                    .body("name", is(name))
-                    .body("job", is(position))
-                    .body("id", notNullValue());
+                .log().body()
+                .log().status()
+                .statusCode(201)
+                .body("name", is(name))
+                .body("job", is(position))
+                .body("id", notNullValue());
     }
 
     @Test
-    void сreateUserWhithOutName(){
+    void createUserWithoutName() {
         String data = "{\"name\":null,\"job\":\"QA\"}";
 
         given()
@@ -52,18 +53,18 @@ public class homeWorkByFirstLessonApiTesting {
                 .log().uri()
 
                 .when()
-                    .post("/users")
+                .post("/users")
 
                 .then()
-                    .log().body()
-                    .log().status()
-                    .statusCode(201)
-                    .body("name", is(nullValue()))
-                    .body("job", is("QA"));
+                .log().body()
+                .log().status()
+                .statusCode(201)
+                .body("name", is(nullValue()))
+                .body("job", is("QA"));
     }
 
     @Test
-    void successUdateUserName(){
+    void successUpdateUserName() {
         String name = faker.name().firstName();
         String data = "{\"name\":\"" + name + "\"}";
 
@@ -73,44 +74,44 @@ public class homeWorkByFirstLessonApiTesting {
                 .log().uri()
 
                 .when()
-                    .put("/users/1")
+                .put("/users/1")
 
                 .then()
-                    .log().body()
-                    .log().status()
-                    .statusCode(200)
-                    .body("name", is(name));
+                .log().body()
+                .log().status()
+                .statusCode(200)
+                .body("name", is(name));
     }
 
     @Test
-    void checkColorFirstUser(){
+    void checkColorFirstUser() {
 
         given()
                 .log().uri()
 
                 .when()
-                    .get("/unknown")
+                .get("/unknown")
 
                 .then()
-                    .log().body()
-                    .log().status()
-                    .statusCode(200)
-                    .body("data[0].color", is("#98B2D1"));
+                .log().body()
+                .log().status()
+                .statusCode(200)
+                .body("data[0].color", is("#98B2D1"));
     }
 
     @Test
-    void checkTotalUsers(){
+    void checkTotalUsers() {
 
         given()
                 .log().uri()
 
                 .when()
-                    .get("/unknown")
+                .get("/unknown")
 
                 .then()
-                    .log().body()
-                    .log().status()
-                    .statusCode(200)
-                    .body("total", is(12));
+                .log().body()
+                .log().status()
+                .statusCode(200)
+                .body("total", is(12));
     }
 }
